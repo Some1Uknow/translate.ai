@@ -2,13 +2,15 @@
 
 Translate.ai is a simple, AI-powered translation web application built with Next.js, Langchain and MistralAI.
 
+## Tech Stack
+
+<img src="https://skillicons.dev/icons?i=next,typescript,langchain" />
+
 ## Features
 
 - User-friendly interface for inputting text to be translated
-- Support for a wide range of languages
-- Real-time translation using advanced AI models
+- Support for a wide range of languages (70+)
 - Responsive design for both desktop and mobile devices
-- Custom-styled scrollbars for enhanced user experience
 
 ## Getting Started
 
