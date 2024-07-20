@@ -68,11 +68,21 @@ Return only the translated text, with no additional explanations or metadata.`
     }
   };
 
+  const isInputEmpty = !input || input.trim() === "";
+
   return (
     <button
       type="button"
       onClick={handleTranslate}
-      className="text-black bg-white rounded-md font-semibold text-xl p-2 text-center mb-5 hover:bg-gray-100 transition-colors"
+      disabled={isInputEmpty}
+      className={`
+        text-black bg-white rounded-md font-semibold 
+        text-sm sm:text-base md:text-xl 
+        p-2 sm:p-3 
+        text-center mb-3 sm:mb-5 
+        transition-colors
+        ${isInputEmpty ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-100"}
+      `}
     >
       Translate
     </button>
