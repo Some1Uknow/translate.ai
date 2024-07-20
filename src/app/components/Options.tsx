@@ -1,17 +1,32 @@
 import "../globals.css";
+import Submit from "./Submit";
 
 interface OptionsProps {
+  input: string;
   outputLanguage: string;
   setOutputLanguage: (value: string) => void;
+  setOutput: (value: string) => void;
+
+  setOutputHeading: (value: string) => void;
 }
 
 export default function Options({
+  input,
+  setOutput,
   outputLanguage,
   setOutputLanguage,
+  setOutputHeading,
 }: OptionsProps) {
+  console.log(outputLanguage);
   return (
     <>
       <main>
+        <Submit
+          input={input}
+          setOutput={setOutput}
+          outputLanguage={outputLanguage}
+          setOutputHeading={setOutputHeading}
+        />
         <p className="mb-2">Select a language</p>
         <select
           name="language-selection"
