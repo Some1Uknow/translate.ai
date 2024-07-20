@@ -31,10 +31,12 @@ export default function Submit({
 Instructions:
 1. Automatically identify the source language.
 2. Translate the text into ${outputLanguage}.
-3. Provide ONLY the translated text in your response.
-4. Maintain the original formatting, including line breaks and punctuation.
-5. If there are any untranslatable elements (e.g., names, specialized terms), keep them in their original form.
-6. Ensure the translation captures the tone and context of the original text.
+3. If the message is informal, then translate it to its formal counterpart.
+4. Provide ONLY the translated text in your response.
+5. Maintain the original formatting, including line breaks and punctuation.
+6. If there are any untranslatable elements (e.g., names, specialized terms), keep them in their original form.
+7. Ensure the translation captures the tone and context of the original text.
+
 
 Return only the translated text, with no additional explanations or metadata.`
       ),
