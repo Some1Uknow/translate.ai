@@ -2,13 +2,16 @@
 
 Translate.ai is a simple, AI-powered translation web application built with Next.js, Langchain and MistralAI.
 
+## Tech Stack
+
+<img src="https://skillicons.dev/icons?i=next,typescript" />
+- Langchain.js
+
 ## Features
 
 - User-friendly interface for inputting text to be translated
-- Support for a wide range of languages
-- Real-time translation using advanced AI models
+- Support for a wide range of languages (70+)
 - Responsive design for both desktop and mobile devices
-- Custom-styled scrollbars for enhanced user experience
 
 ## Getting Started
 
@@ -43,7 +46,7 @@ yarn install
 3. Set up environment variables:
 Create a `.env.local` file in the root directory and add Mistral AI API key:
 ```
-MISTRAL_AI_KEY="enter key here"
+NEXT_PUBLIC_MISTRAL_API_KEY="enter key here"
 ```
 
 4. Run the development server 
