@@ -10,11 +10,11 @@ export default function MainContainer() {
   const [outputHeading, setOutputHeading] = useState<string>("Translated Text will appear in this box");
   const [outputLanguage, setOutputLanguage] = useState<string>("");
   return (
-    <main className="flex flex-row mt-20 justify-around">
+    <main className="flex flex-col md:flex-row mt-10 md:mt-20 justify-around px-4 md:px-0 space-y-4 md:space-y-0 md:space-x-4">
       <InputBox input={input} setInput={setInput} />
       <Options
-      input={input}
-      setOutput={setOutput}
+        input={input}
+        setOutput={setOutput}
         outputLanguage={outputLanguage}
         setOutputLanguage={setOutputLanguage}
         setOutputHeading={setOutputHeading}
