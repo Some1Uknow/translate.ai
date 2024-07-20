@@ -43,7 +43,7 @@ yarn install
 3. Set up environment variables:
 Create a `.env.local` file in the root directory and add Mistral AI API key:
 ```
-MISTRAL_AI_KEY="enter key here"
+NEXT_PUBLIC_MISTRAL_API_KEY="enter key here"
 ```
 
 4. Run the development server 
