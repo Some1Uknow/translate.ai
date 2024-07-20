@@ -4,7 +4,7 @@ Translate.ai is a simple, AI-powered translation web application built with Next
 
 ## Tech Stack
 
-<img src="https://skillicons.dev/icons?i=next,typescript" /><img src="https://api.nuget.org/v3-flatcontainer/langchain.databases.chroma/0.14.1-dev.7/icon"/>
+<img src="https://skillicons.dev/icons?i=next,typescript" /><img src="https://miro.medium.com/v2/resize:fit:524/format:webp/1*Ss1ZVBUircxTR94Jc-mklA.jpeg"/>
 
 ## Features
 
