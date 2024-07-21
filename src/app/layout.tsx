@@ -16,6 +16,11 @@ export const metadata: Metadata = {
     "Translate AI",
     "AI Translator",
     "Translate to any language",
+    "ChatGPT",
+    "Claude",
+    "Chatbot",
+    "AI",
+    "GPT",
   ],
 };
 
