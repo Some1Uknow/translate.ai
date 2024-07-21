@@ -1,4 +1,4 @@
-import "../globals.css";
+import { useState, useEffect, useRef } from "react";
 import Submit from "./Submit";
 
 interface OptionsProps {
@@ -9,6 +9,20 @@ interface OptionsProps {
   setOutputHeading: (value: string) => void;
 }
 
+const languages = [
+  "Afrikaans", "Albanian", "Arabic", "Armenian", "Azerbaijani", "Basque", "Belarusian", "Bengali",
+  "Bosnian", "Bulgarian", "Catalan", "Cebuano", "Chinese (Simplified)", "Chinese (Traditional)",
+  "Croatian", "Czech", "Danish", "Dutch", "English", "Esperanto", "Estonian", "Filipino", "Finnish",
+  "French", "Galician", "Georgian", "German", "Greek", "Gujarati", "Haitian Creole", "Hausa",
+  "Hebrew", "Hindi", "Hungarian", "Icelandic", "Indonesian", "Irish", "Italian", "Japanese",
+  "Javanese", "Kannada", "Kazakh", "Korean", "Latin", "Latvian", "Lithuanian", "Macedonian",
+  "Malay", "Maltese", "Maori", "Marathi", "Mongolian", "Nepali", "Norwegian", "Persian", "Polish",
+  "Portuguese", "Punjabi", "Romanian", "Russian", "Serbian", "Slovak", "Slovenian", "Somali",
+  "Spanish", "Swahili", "Swedish", "Tamil", "Telugu", "Thai", "Turkish", "Ukrainian", "Urdu",
+  "Uzbek", "Vietnamese", "Welsh", "Yiddish", "Yoruba", "Zulu"
+];
+
+
 export default function Options({
   input,
   setOutput,
@@ -16,241 +30,88 @@ export default function Options({
   setOutputLanguage,
   setOutputHeading,
 }: OptionsProps) {
-  console.log(outputLanguage);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredLanguages, setFilteredLanguages] = useState<string[]>([]);
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const optionsRef = useRef<HTMLUListElement>(null);
+
+  useEffect(() => {
+    if (searchTerm.trim() !== "") {
+      const filtered = languages.filter(lang =>
+        lang.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredLanguages(filtered);
+    } else {
+      setFilteredLanguages([]);
+    }
+    setSelectedIndex(-1);
+  }, [searchTerm]);
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setSelectedIndex(prev => (prev < filteredLanguages.length - 1 ? prev + 1 : prev));
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setSelectedIndex(prev => (prev > 0 ? prev - 1 : prev));
+    } else if (e.key === "Enter" && selectedIndex >= 0) {
+      selectLanguage(filteredLanguages[selectedIndex]);
+    }
+  };
+
+  useEffect(() => {
+    if (selectedIndex >= 0 && optionsRef.current) {
+      const selectedOption = optionsRef.current.children[selectedIndex] as HTMLLIElement;
+      selectedOption.scrollIntoView({ block: "nearest" });
+    }
+  }, [selectedIndex]);
+
+  const selectLanguage = (lang: string) => {
+    setOutputLanguage(lang);
+    setSearchTerm(lang);
+    setFilteredLanguages([]);
+    setSelectedIndex(-1);
+    inputRef.current?.focus();
+  };
+
   return (
-    <div className="w-full md:w-auto flex flex-col items-center">
+    <div className="w-full md:w-auto flex flex-row-reverse justify-center gap-2 items-center">
       <Submit
         input={input}
         setOutput={setOutput}
         outputLanguage={outputLanguage}
         setOutputHeading={setOutputHeading}
       />
-      <p className="mb-2 text-sm md:text-base">Select a language</p>
-      <select
-        name="language-selection"
-        title="Select a Language"
-        data-placeholder="Choose a Language..."
-        className="bg-gray-950 scrollbar p-1 w-full md:w-auto text-sm md:text-base"
-        value={outputLanguage}
-        onChange={(e) => setOutputLanguage(e.target.value)}
-      >
-        <option className="bg-gray-950" value="Afrikaans">
-          Afrikaans
-        </option>
-        <option className="bg-gray-950" value="Albanian">
-          Albanian
-        </option>
-        <option className="bg-gray-950" value="Arabic">
-          Arabic
-        </option>
-        <option className="bg-gray-950" value="Armenian">
-          Armenian
-        </option>
-        <option className="bg-gray-950" value="Basque">
-          Basque
-        </option>
-        <option className="bg-gray-950" value="Bengali">
-          Bengali
-        </option>
-        <option className="bg-gray-950" value="Bulgarian">
-          Bulgarian
-        </option>
-        <option className="bg-gray-950" value="Catalan">
-          Catalan
-        </option>
-        <option className="bg-gray-950" value="Cambodian">
-          Cambodian
-        </option>
-        <option className="bg-gray-950" value="Chinese (Mandarin)">
-          Chinese (Mandarin)
-        </option>
-        <option className="bg-gray-950" value="Croatian">
-          Croatian
-        </option>
-        <option className="bg-gray-950" value="Czech">
-          Czech
-        </option>
-        <option className="bg-gray-950" value="Danish">
-          Danish
-        </option>
-        <option className="bg-gray-950" value="Dutch">
-          Dutch
-        </option>
-        <option className="bg-gray-950" value="English">
-          English
-        </option>
-        <option className="bg-gray-950" value="Estonian">
-          Estonian
-        </option>
-        <option className="bg-gray-950" value="Fiji">
-          Fiji
-        </option>
-        <option className="bg-gray-950" value="Finnish">
-          Finnish
-        </option>
-        <option className="bg-gray-950" value="French">
-          French
-        </option>
-        <option className="bg-gray-950" value="Georgian">
-          Georgian
-        </option>
-        <option className="bg-gray-950" value="German">
-          German
-        </option>
-        <option className="bg-gray-950" value="Greek">
-          Greek
-        </option>
-        <option className="bg-gray-950" value="Gujarati">
-          Gujarati
-        </option>
-        <option className="bg-gray-950" value="Hebrew">
-          Hebrew
-        </option>
-        <option className="bg-gray-950" value="Hindi">
-          Hindi
-        </option>
-        <option className="bg-gray-950" value="Hungarian">
-          Hungarian
-        </option>
-        <option className="bg-gray-950" value="Icelandic">
-          Icelandic
-        </option>
-        <option className="bg-gray-950" value="Indonesian">
-          Indonesian
-        </option>
-        <option className="bg-gray-950" value="Irish">
-          Irish
-        </option>
-        <option className="bg-gray-950" value="Italian">
-          Italian
-        </option>
-        <option className="bg-gray-950" value="Japanese">
-          Japanese
-        </option>
-        <option className="bg-gray-950" value="Javanese">
-          Javanese
-        </option>
-        <option className="bg-gray-950" value="Korean">
-          Korean
-        </option>
-        <option className="bg-gray-950" value="Latin">
-          Latin
-        </option>
-        <option className="bg-gray-950" value="Latvian">
-          Latvian
-        </option>
-        <option className="bg-gray-950" value="Lithuanian">
-          Lithuanian
-        </option>
-        <option className="bg-gray-950" value="Macedonian">
-          Macedonian
-        </option>
-        <option className="bg-gray-950" value="Malay">
-          Malay
-        </option>
-        <option className="bg-gray-950" value="Malayalam">
-          Malayalam
-        </option>
-        <option className="bg-gray-950" value="Maltese">
-          Maltese
-        </option>
-        <option className="bg-gray-950" value="Maori">
-          Maori
-        </option>
-        <option className="bg-gray-950" value="Marathi">
-          Marathi
-        </option>
-        <option className="bg-gray-950" value="Mongolian">
-          Mongolian
-        </option>
-        <option className="bg-gray-950" value="Nepali">
-          Nepali
-        </option>
-        <option className="bg-gray-950" value="Norwegian">
-          Norwegian
-        </option>
-        <option className="bg-gray-950" value="Persian">
-          Persian
-        </option>
-        <option className="bg-gray-950" value="Polish">
-          Polish
-        </option>
-        <option className="bg-gray-950" value="Portuguese">
-          Portuguese
-        </option>
-        <option className="bg-gray-950" value="Punjabi">
-          Punjabi
-        </option>
-        <option className="bg-gray-950" value="Quechua">
-          Quechua
-        </option>
-        <option className="bg-gray-950" value="Romanian">
-          Romanian
-        </option>
-        <option className="bg-gray-950" value="Russian">
-          Russian
-        </option>
-        <option className="bg-gray-950" value="Samoan">
-          Samoan
-        </option>
-        <option className="bg-gray-950" value="Serbian">
-          Serbian
-        </option>
-        <option className="bg-gray-950" value="Slovak">
-          Slovak
-        </option>
-        <option className="bg-gray-950" value="Slovenian">
-          Slovenian
-        </option>
-        <option className="bg-gray-950" value="Spanish">
-          Spanish
-        </option>
-        <option className="bg-gray-950" value="Swahili">
-          Swahili
-        </option>
-        <option className="bg-gray-950" value="Swedish ">
-          Swedish{" "}
-        </option>
-        <option className="bg-gray-950" value="Tamil">
-          Tamil
-        </option>
-        <option className="bg-gray-950" value="Tatar">
-          Tatar
-        </option>
-        <option className="bg-gray-950" value="Telugu">
-          Telugu
-        </option>
-        <option className="bg-gray-950" value="Thai">
-          Thai
-        </option>
-        <option className="bg-gray-950" value="Tibetan">
-          Tibetan
-        </option>
-        <option className="bg-gray-950" value="Tonga">
-          Tonga
-        </option>
-        <option className="bg-gray-950" value="Turkish">
-          Turkish
-        </option>
-        <option className="bg-gray-950" value="Ukrainian">
-          Ukrainian
-        </option>
-        <option className="bg-gray-950" value="Urdu">
-          Urdu
-        </option>
-        <option className="bg-gray-950" value="Uzbek">
-          Uzbek
-        </option>
-        <option className="bg-gray-950" value="Vietnamese">
-          Vietnamese
-        </option>
-        <option className="bg-gray-950" value="Welsh">
-          Welsh
-        </option>
-        <option className="bg-gray-950" value="Xhosa">
-          Xhosa
-        </option>
-      </select>
+      <div className="relative w-3/5 md:w-64">
+        <input
+          ref={inputRef}
+          type="text"
+          placeholder="Select a language..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onKeyDown={handleKeyDown}
+          className="w-full p-2 bg-gray-800 border border-gray-700 rounded-md text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        {filteredLanguages.length > 0 && (
+          <ul 
+            ref={optionsRef}
+            className="absolute z-10 w-full mt-1 bg-gray-950 border border-gray-700 rounded-md shadow-lg max-h-60 overflow-auto scrollbar"
+          >
+            {filteredLanguages.map((lang, index) => (
+              <li 
+                key={index} 
+                className={`p-2 hover:bg-gray-800 cursor-pointer text-sm md:text-base ${
+                  index === selectedIndex ? "bg-gray-700" : ""
+                }`}
+                onClick={() => selectLanguage(lang)}
+              >
+                {lang}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }

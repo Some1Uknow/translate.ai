@@ -9,11 +9,12 @@ export default function InputBox({ input, setInput }: InputBoxProps) {
       <p className="bg-gray-950 w-full p-3 md:p-5 text-sm md:text-base rounded-t-xl">
         Enter your text here in any language
       </p>
-      <input
+      <textarea
         aria-label="input-text"
-        className="w-full flex-grow bg-inherit focus:outline-none p-2 text-sm md:text-base"
+        className="w-full h-full bg-inherit focus:outline-none p-2 text-sm md:text-base resize-none"
         value={input}
         onChange={(e) => setInput(e.target.value)}
+        rows={4}
       />
     </div>
   );

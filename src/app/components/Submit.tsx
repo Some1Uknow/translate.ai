@@ -80,8 +80,8 @@ Return only the translated text, with no additional explanations or metadata.`
       className={`
         text-black bg-white rounded-md font-semibold 
         text-sm sm:text-base md:text-xl 
-        p-2 sm:p-3 
-        text-center mb-3 sm:mb-5 
+        p-2 
+        text-center
         transition-colors
         ${isInputEmpty ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-100"}
       `}
